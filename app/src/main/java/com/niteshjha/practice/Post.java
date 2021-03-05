@@ -25,3 +25,4 @@ public class Post {
         return text;
     }
 }
+
