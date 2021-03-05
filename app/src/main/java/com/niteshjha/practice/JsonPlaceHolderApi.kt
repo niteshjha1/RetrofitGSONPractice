@@ -1,20 +1,24 @@
 package com.niteshjha.practice
 
+import com.niteshjha.practice.Comment
+import com.niteshjha.practice.Post
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
-public interface JsonPlaceHolderApi {
+interface JsonPlaceHolderApi {
     @GET("posts")
-    fun getPosts(@Query("userId") userId : Int,
-                 @Query("_sort") sort : String,
-                 @Query("_order") order : String)
+    fun getPosts(
+            @Query("userId") userId: Array<Int?>?,
+            @Query("_sort") sort: String?,
+            @Query("_order") order: String?
+    ): Call<List<Post?>?>?
 
-            : Call<List<Post?>?>?
+    @GET("posts")
+    fun getPosts(@QueryMap parameters: Map<String?, String?>?): Call<List<Post?>?>?
 
     @GET("posts/{id}/comments")
     fun getComments(@Path("id") postId: Int): Call<List<Comment?>?>?
-}
 
-//checking
+    @GET
+    fun getComments(@Url url: String?): Call<List<Comment?>?>?
+}
