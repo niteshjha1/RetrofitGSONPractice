@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 //    }
     private void createPost(){
 
-        Post post = new Post(23, "Newly added Title", "Newly added Text");
+//        Post post = new Post(23, "Newly added Title", "Newly added Text");
 
-        Call<Post> call  = jsonPlaceHolderApi.createPost(post);
+        Call<Post> call  = jsonPlaceHolderApi.createPost(55,"Newly added title","Newly added text");
 
         call.enqueue(new Callback<Post>() {
             @Override
@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                     String content = "";
                     content += "Code  : " + response.code() + "\n";
+                    content += "Id : " + postResponse.getId() + "\n";
                     content += "User id : " + postResponse.getUserId() + "\n";
                     content += "Title : " + postResponse.getTitle() + "\n";
                     content += "Text : " + postResponse.getText() + "\n";
