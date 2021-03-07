@@ -11,8 +11,8 @@ interface JsonPlaceHolderApi {
             @Query("_sort") sort: String?,
             @Query("_order") order: String?) : Call<List<Post?>?>?
 
-    @GET("posts")
-    fun getPosts(@QueryMap parameters: Map<String?, String?>?): Call<List<Post?>?>?
+//    @GET("posts")
+//    fun getPosts(@QueryMap parameters: <String?, String?>?): Call<List<Post?>?>?
 
     @GET("posts/{id}/comments")
     fun getComments(@Path("id") postId: Int): Call<List<Comment?>?>?
@@ -27,6 +27,12 @@ interface JsonPlaceHolderApi {
             @Field("userId") userId: Int,
             @Field("title") title: String?,
             @Field("body") body: String?): Call<Post?>?
+
+    @FormUrlEncoded
+    @POST("posts")
+    open fun createPost(@FieldMap field: Map<String?, String?>?): Call<Post?>?
+
+
 }
 
 

@@ -38,37 +38,37 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getPosts() {
-
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("userId", "4");
-        parameters.put("_sort", "id");
-        parameters.put("_order", "desc");
-
-        Call<List<Post>> call = jsonPlaceHolderApi.getPosts(parameters);
-        call.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                if (!response.isSuccessful()) {
-                    textViewResult.setText("Code: " + response.code());
-                    return;
-                }
-                List<Post> posts = response.body();
-                for (Post post : posts) {
-                    String content = "";
-                    content += "ID: " + post.getId() + "\n";
-                    content += "User ID: " + post.getUserId() + "\n";
-                    content += "Title: " + post.getTitle() + "\n";
-                    content += "Text: " + post.getText() + "\n\n";
-                    textViewResult.append(content);
-                }
-            }
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                textViewResult.setText(t.getMessage());
-            }
-        });
-    }
+//    private void getPosts() {
+//
+//        Map<String, String> parameters = new HashMap<>();
+//        parameters.put("userId", "4");
+//        parameters.put("_sort", "id");
+//        parameters.put("_order", "desc");
+//
+//        Call<List<Post>> call = jsonPlaceHolderApi.getPosts(parameters);
+//        call.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                if (!response.isSuccessful()) {
+//                    textViewResult.setText("Code: " + response.code());
+//                    return;
+//                }
+//                List<Post> posts = response.body();
+//                for (Post post : posts) {
+//                    String content = "";
+//                    content += "ID: " + post.getId() + "\n";
+//                    content += "User ID: " + post.getUserId() + "\n";
+//                    content += "Title: " + post.getTitle() + "\n";
+//                    content += "Text: " + post.getText() + "\n\n";
+//                    textViewResult.append(content);
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                textViewResult.setText(t.getMessage());
+//            }
+//        });
+//    }
 //    private void  getComments(){
 //        Call<List<Comment>> call = jsonPlaceHolderApi.getComments("https://jsonplaceholder.typicode.com/posts/3/comments");
 //        call.enqueue(new Callback<List<Comment>>() {
@@ -99,7 +99,12 @@ public class MainActivity extends AppCompatActivity {
 
 //        Post post = new Post(23, "Newly added Title", "Newly added Text");
 
-        Call<Post> call  = jsonPlaceHolderApi.createPost(55,"Newly added title","Newly added text");
+        Map<String,String> fields = new HashMap<>();
+        fields.put("userId","56");
+        fields.put("title","Newly added Title");
+//        fields.put("body","56");
+
+        Call<Post> call  = jsonPlaceHolderApi.createPost(fields);
 
         call.enqueue(new Callback<Post>() {
             @Override
