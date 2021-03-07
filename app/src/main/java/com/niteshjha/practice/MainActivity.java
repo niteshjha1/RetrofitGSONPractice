@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
-        getPosts();
+//        getPosts();
 //        getComments();
+        createPost();
+
     }
 
     private void getPosts() {
@@ -67,29 +69,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void  getComments(){
-        Call<List<Comment>> call = jsonPlaceHolderApi.getComments("https://jsonplaceholder.typicode.com/posts/3/comments");
-        call.enqueue(new Callback<List<Comment>>() {
+//    private void  getComments(){
+//        Call<List<Comment>> call = jsonPlaceHolderApi.getComments("https://jsonplaceholder.typicode.com/posts/3/comments");
+//        call.enqueue(new Callback<List<Comment>>() {
+//            @Override
+//            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+//                if (!response.isSuccessful()) {
+//                    textViewResult.setText("Code: " + response.code());
+//                    return;
+//                }
+//                List<Comment> comments = response.body();
+//                for (Comment comment : comments){
+//                    String content = "";
+//                    content += "Post ID : " + comment.getPostId() + "\n";
+//                    content += "ID : " + comment.getId() + "\n";
+//                    content += "Name : " + comment.getName() + "\n";
+//                    content += "Email : " + comment.getEmail() + "\n";
+//                    content += "Text : " + comment.getText() + "\n\n";
+//                    textViewResult.append(content);
+//                }
+//            }
+//            @Override
+//            public void onFailure(Call<List<Comment>> call, Throwable t) {
+//                textViewResult.setText(t.getMessage());
+//            }
+//        });
+//    }
+    private void createPost(){
+
+        Post post = new Post(23, "Newly added Title", "Newly added Text");
+
+        Call<Post> call  = jsonPlaceHolderApi.createPost(post);
+
+        call.enqueue(new Callback<Post>() {
             @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+            public void onResponse(Call<Post> call, Response<Post> response) {
+
                 if (!response.isSuccessful()) {
                     textViewResult.setText("Code: " + response.code());
                     return;
                 }
-                List<Comment> comments = response.body();
-                for (Comment comment : comments){
+                Post postResponse = response.body();
+
                     String content = "";
-                    content += "Post ID : " + comment.getPostId() + "\n";
-                    content += "ID : " + comment.getId() + "\n";
-                    content += "Name : " + comment.getName() + "\n";
-                    content += "Email : " + comment.getEmail() + "\n";
-                    content += "Text : " + comment.getText() + "\n\n";
+                    content += "Code  : " + response.code() + "\n";
+                    content += "User id : " + postResponse.getUserId() + "\n";
+                    content += "Title : " + postResponse.getTitle() + "\n";
+                    content += "Text : " + postResponse.getText() + "\n";
                     textViewResult.append(content);
-                }
             }
+
             @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
+            public void onFailure(Call<Post> call, Throwable t) {
                 textViewResult.setText(t.getMessage());
+
             }
         });
     }
